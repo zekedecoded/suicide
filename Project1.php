@@ -118,16 +118,16 @@ class Wallet
             a.last_name AS admin_lastname,
             t.amount,
             t.description
-        FROM transaction t
-        JOIN wallet w ON t.wallet_id = w.wallet_id
-        JOIN users su ON w.userID = su.userID
-        LEFT JOIN merchant m ON t.merchantID = m.merchantID
-        LEFT JOIN topup tp 
+            FROM transaction t
+            JOIN wallet w ON t.wallet_id = w.wallet_id
+            JOIN users su ON w.userID = su.userID
+            LEFT JOIN merchant m ON t.merchantID = m.merchantID
+            LEFT JOIN topup tp 
             ON tp.wallet_id = t.wallet_id 
             AND tp.amount = t.amount 
             AND DATE(tp.date_time) = DATE(t.date_time)
-        LEFT JOIN users a ON tp.adminID = a.userID
-        ORDER BY t.date_time DESC;
+            LEFT JOIN users a ON tp.adminID = a.userID
+            ORDER BY t.date_time DESC;
         ");
         $stmt->execute();
         if (!$stmt->rowCount()) {
@@ -181,6 +181,22 @@ class Wallet
         return $stmt->fetchColumn();
     }
     // jastine
+    public function login($id, $password)
+    {
+        $stmt = $this->con->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$id]);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if ($user) {
+            if ($password === $user['password']) {
+                return $user;
+            }
+            return false;
+        }
+        return false;
+    }
+    // jastine
+
 
     public function responseSQL($stmt)
     {

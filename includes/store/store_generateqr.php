@@ -79,17 +79,48 @@
             return;
         }
 
-        let qrData = "Amount: " + amount + " | Item: " + desc;
+        fetch("generateqr.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "amount=" + amount + "&desc=" + desc
+        })
+        .then(response => response.text())
+        .then(qrData => {
 
-        let qrContainer = document.getElementById("qrcode");
-        qrContainer.innerHTML = ""; // clear previous QR
+            let qrContainer = document.getElementById("qrcode");
+            qrContainer.innerHTML = "";
 
-        new QRCode(qrContainer, {
-            text: qrData,
-            width: 200,
-            height: 200
+            new QRCode(qrContainer, {
+                text: qrData,
+                width: 200,
+                height: 200
+            });
+
         });
     }
+
+    // function generateQR() {
+    //     let amount = document.getElementById("amountInput").value;
+    //     let desc = document.getElementById("descInput").value;
+
+    //     if (!amount) {
+    //         alert("Enter amount first!");
+    //         return;
+    //     }
+
+    //     let qrData = "Amount: " + amount + " | Item: " + desc;
+
+    //     let qrContainer = document.getElementById("qrcode");
+    //     qrContainer.innerHTML = ""; // clear previous QR
+
+    //     new QRCode(qrContainer, {
+    //         text: qrData,
+    //         width: 200,
+    //         height: 200
+    //     });
+    // }
     </script>
 
 </body>

@@ -5,6 +5,6 @@
     </div>
 
     <div class="student-nav-right">
-        <a href="../index.php" class="nav-logout">Logout</a>
+        <a href="../logout.php" class="nav-logout">Logout</a>
     </div>
 </div>

@@ -1,3 +1,36 @@
+<!-- added -->
+<?php
+session_start();
+require_once '../Project1.php';
+
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['student_id'];
+    $pass = $_POST['password'];
+
+    if ($id && $pass) {
+        $user = $Project->login($id, $pass); // call the function
+
+        if ($user) {
+            $_SESSION['userID'] = $user['userID'];
+            $_SESSION['roleID'] = $user['roleID'];
+
+            switch ($user['roleID']) {
+                case 1: header("Location: ./student/student.php"); exit;
+                case 2: header("Location: ./store/store.php"); exit;
+                case 3: header("Location: ./admin/admin.php"); exit;
+            }
+        } else {
+            $error = "Invalid login!";
+        }
+    } else {
+        $error = "Fill all fields!";
+    }
+}
+?>
+<!-- added -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +62,7 @@
             </div>
 
             <!-- FORM -->
-            <form>
+            <form method="POST">
 
                 <!-- STUDENT ID -->
                 <div class="mb-4">
@@ -70,9 +103,12 @@
 
                 <!-- SIGN IN -->
                 <div class="d-grid login-signin-wrap">
-                    <a href="./includes/verification_page.php" class="btn login-btn">
+                    <!-- <a href="./includes/verification_page.php" class="btn login-btn">
                         SIGN IN
-                    </a>
+                    </a> -->
+                    <button type="submit" class="btn login-btn">
+                        SIGN IN
+                    </button>
                 </div>
 
                 <!-- SIGN UP TEXT LINK -->

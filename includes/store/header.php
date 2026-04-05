@@ -13,7 +13,7 @@
 
     <!-- RIGHT SIDE -->
     <div class="store-nav-right">
-        <a href="../index.php" class="store-nav-logout">
+        <a href="../logout.php" class="store-nav-logout">
             Log Out
         </a>
     </div>
