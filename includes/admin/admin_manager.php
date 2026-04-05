@@ -1,6 +1,7 @@
 <?php
 require '../../Record.php';
 $data = $Record->getAll();
+$data1 = $Record->getMerchants();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -149,11 +150,20 @@ $data = $Record->getAll();
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                            $number = 0;
+                            foreach ($data1 as $row) {
+                                $number++; ?>
                             <tr>
-                                <td>1</td>
-                                <td>Mark Otto</td>
-                                <td>Otto's Burger Shop</td>
-                                <td>mark.otto@example.com</td>
+                                <td><?= $number ?></td>
+                                <td><?= $row['first_name'] .
+                                    ' ' .
+                                    $row['middle_name'] .
+                                    ' ' .
+                                    $row['last_name'] .
+                                    $row['suffix'] ?></td>
+                                <td><?= $row['stall_name'] ?></td>
+                                <td><?= $row['email'] ?></td>
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a href="admin_view_store_info.php" class="admin-view-btn">
@@ -168,6 +178,9 @@ $data = $Record->getAll();
                                     </div>
                                 </td>
                             </tr>
+                                 <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>

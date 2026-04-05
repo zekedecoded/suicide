@@ -1,6 +1,6 @@
 <?php
-include '../../Project.php';
-$Project->Add();
+include '../../Record.php';
+$Record->AddMerchant();
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +59,7 @@ $Project->Add();
             </div>
 
             <!-- FORM -->
-            <div class="admin-table-shell">
+            <form method="POST" class="admin-table-shell">
                 <div class="admin-table-head">
                     <div>
                         <h3 class="admin-table-title">Store Profile</h3>
@@ -93,7 +93,8 @@ $Project->Add();
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Suffix</label>
-                        <input name="suffix" type="text" class="form-control admin-form-input mt-2" placeholder="Jr.">
+                        <input name="suffix" type="text" class="form-control admin-form-input mt-2"
+                            placeholder="Jr.">
                     </div>
                 </div>
 
@@ -135,12 +136,12 @@ $Project->Add();
                         Back
                     </a>
 
-                    <a href="admin_manager.php" class="admin-submit-btn">
+                    <button name="AddMerchant" class="admin-submit-btn">
                         Submit Information
-                    </a>
+                    </button>
                 </div>
 
-            </div>
+            </form>
 
         </div>
     </div>
