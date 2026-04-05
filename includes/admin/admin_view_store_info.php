@@ -1,3 +1,12 @@
+<?php
+include '../../Record.php';
+
+if (isset($_GET['id'])) {
+    $row = $Record->viewStore($_GET['id']);
+} else {
+    //redirect
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,22 +79,30 @@
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">First Name</label>
-                        <input type="text" class="form-control admin-form-input mt-2" disabled placeholder="Michael">
-                    </div>
-
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <label class="admin-form-label">Last Name</label>
-                        <input type="text" class="form-control admin-form-input mt-2" disabled placeholder="Garcia">
+                        <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
+                            'first_name'
+                        ] ?>">
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Middle Name</label>
-                        <input type="text" class="form-control admin-form-input mt-2" disabled placeholder="Bañez">
+                        <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
+                            'middle_name'
+                        ] ?>">
                     </div>
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <label class="admin-form-label">Last Name</label>
+                        <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
+                            'last_name'
+                        ] ?>">
+                    </div>
+
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Suffix</label>
-                        <input type="text" class="form-control admin-form-input mt-2" disabled placeholder="Jr.">
+                        <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
+                            'suffix'
+                        ] ?>">
                     </div>
                 </div>
 
@@ -97,7 +114,9 @@
 
                     <div class="col-12 col-sm-6 col-lg-4">
                         <label class="admin-form-label">Store Name</label>
-                        <input type="text" class="form-control admin-form-input mt-2" disabled placeholder="My Store">
+                        <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
+                            'stall_name'
+                        ] ?>">
                     </div>
                 </div>
 
@@ -110,13 +129,13 @@
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Contact Number</label>
                         <input type="text" class="form-control admin-form-input mt-2" disabled
-                            placeholder="09123456789">
+                            value="<?= $row['contact_number'] ?>">
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Email</label>
                         <input type="text" class="form-control admin-form-input mt-2" disabled
-                            placeholder="michael.garcia@example.com">
+                            value="<?= $row['email'] ?>">
                     </div>
                 </div>
 
