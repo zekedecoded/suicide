@@ -26,7 +26,7 @@
                 <div class="admin-top-actions">
                     <div class="admin-date-chip">APR 04, 2026</div>
                     <a href="../index.php" class="admin-logout-top-btn">Logout</a>
-                </div>
+                </div>`
             </div>
 
             <!-- TABS -->

@@ -1,6 +1,9 @@
 <?php
-include '../../Project.php';
-$Project->Add();
+include '../../Record.php';
+$Record->Add();
+
+// Fetch courses for the dropdown
+$courses = $Record->getCourses();
 ?>
 
 <!DOCTYPE html>
@@ -79,10 +82,10 @@ $Project->Add();
                             placeholder="John">
                     </div>
 
-                    
                     <div class="col-12 col-sm-6 col-lg-3">
-                         <label class="admin-form-label">Middle Name</label>
-                        <input name="middle_name" type="text" class="form-control admin-form-input mt-2" placeholder="Doe">
+                        <label class="admin-form-label">Middle Name</label>
+                        <input name="middle_name" type="text" class="form-control admin-form-input mt-2"
+                            placeholder="Doe">
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
@@ -93,7 +96,8 @@ $Project->Add();
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Suffix</label>
-                        <input name="suffix" type="text" class="form-control admin-form-input mt-2" placeholder="Jr.">
+                        <input name="suffix" type="text" class="form-control admin-form-input mt-2"
+                            placeholder="Jr.">
                     </div>
                 </div>
 
@@ -104,21 +108,27 @@ $Project->Add();
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
-                        <label class="admin-form-label" for="year_level">Year Level</label>
-                        <!-- <input name="yr_lvl" list="year_level" class="form-control admin-form-input mt-2"
-                            placeholder="3rd Year"> -->
-                            <select id="year_level" name="yr_lvl">
-                                <option value="1st Year">1st Year</option>
-                                <option value="2nd Year">2nd Year</option>
-                                <option value="3rd Year">3rd Year</option>
-                                <option value="4th Year">4th Year</option>
-                                </select>
-                            </div>
+                        <label class="admin-form-label" for="yr_lvl">Year Level</label>
+                        <select id="yr_lvl" name="yr_lvl" class="form-control admin-form-input mt-2">
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                        </select>
+                    </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
-                        <label class="admin-form-label">Program</label>
-                        <input name="course" type="text" class="form-control admin-form-input mt-2"
-                            placeholder="Computer Science">
+                        <label class="admin-form-label" for="courseID">Program</label>
+                        <select id="courseID" name="courseID" class="form-control admin-form-input mt-2">
+                            <option value="">-- Select Program --</option>
+                            <?php foreach ($courses as $course): ?>
+                                <option value="<?= $course['courseID'] ?>">
+                                    <?= $course['course_code'] ?> - <?= $course[
+     'course_name'
+ ] ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </div>
 
@@ -152,7 +162,7 @@ $Project->Add();
                     </button>
                 </div>
 
-            </div>
+            </form>
 
         </div>
     </div>
