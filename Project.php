@@ -1,7 +1,7 @@
 <?php
 namespace Classes;
 // use pdo_connection4;
-require_once "connection/pdo_connection4.php";
+require_once 'connection/pdo_connection4.php';
 // require "connection/pdo_connection4.php";
 class Wallet
 {
@@ -32,7 +32,6 @@ class Wallet
             $this->course = $_POST['course'];
             $this->contact_number = $_POST['contact_number'];
             $this->email = $_POST['email'];
-
         }
     }
     // ADDING FUNCTION
@@ -40,7 +39,9 @@ class Wallet
     {
         if (isset($_POST['Add'])) {
             $this->getPost();
-            $stmt = $this->con->prepare("INSERT INTO users(last_name,first_name,middle_name,suffix,yr_lvl,course,contact_number,email) VALUES (?,?,?,?,?,?,?,?)");
+            $stmt = $this->con->prepare(
+                'INSERT INTO users(last_name,first_name,middle_name,suffix,yr_lvl,course,contact_number,email) VALUES (?,?,?,?,?,?,?,?)',
+            );
             $stmt->execute([
                 $this->last_name,
                 $this->first_name,
@@ -52,13 +53,13 @@ class Wallet
                 $this->email,
             ]);
             $this->responseSQL($stmt);
-            header("Location: ../index.php");
+            header('Location: ../index.php');
         }
     }
     // Delete Function
     public function delete($userID)
     {
-        $stmt = $this->con->prepare("DELETE FROM users WHERE userID = ?");
+        $stmt = $this->con->prepare('DELETE FROM users WHERE userID = ?');
         $stmt->execute([$userID]);
         return $stmt->rowCount() > 0;
     }
@@ -68,7 +69,9 @@ class Wallet
     {
         $this->getPost();
         if (!empty($_POST)) {
-            $stmt = $this->con->prepare("UPDATE users SET last_name = ?, first_name = ?, middle_name = ?, suffix = ?, yr_lvl = ?, course = ?, contact_number = ?, email = ? WHERE userID = ?");
+            $stmt = $this->con->prepare(
+                'UPDATE users SET last_name = ?, first_name = ?, middle_name = ?, suffix = ?, yr_lvl = ?, course = ?, contact_number = ?, email = ? WHERE userID = ?',
+            );
             $stmt->execute([
                 $this->last_name,
                 $this->first_name,
@@ -80,22 +83,22 @@ class Wallet
                 $this->email,
                 $userID,
             ]);
-            $this->responseSQL(($stmt));
+            $this->responseSQL($stmt);
             header("Location: ../includes/editEmployment.php?id=$userID");
-
         }
     }
     public function view($userID)
     {
-        if (!$userID)
+        if (!$userID) {
             return 0;
-        $stmt = $this->con->prepare("SELECT * FROM users WHERE userID = ?");
+        }
+        $stmt = $this->con->prepare('SELECT * FROM users WHERE userID = ?');
         $stmt->execute([$userID]);
         return $stmt->rowCount() ? $stmt->fetch() : 0;
     }
     public function getAll()
     {
-        $stmt = $this->con->prepare("SELECT * FROM users");
+        $stmt = $this->con->prepare('SELECT * FROM users');
         $stmt->execute();
         if (!$stmt->rowCount()) {
             return [];
@@ -110,7 +113,6 @@ class Wallet
         } else {
             $this->response = 'failed';
         }
-
     }
 
     public function getResponse()
