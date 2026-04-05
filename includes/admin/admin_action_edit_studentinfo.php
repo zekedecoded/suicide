@@ -1,3 +1,16 @@
+<?php
+include '../../Record.php';
+
+if (isset($_GET['id'])) {
+    $row1 = $Record->view($_GET['id']);
+} else {
+    //redirect
+}
+
+if (isset($_POST['edit'])) {
+    $Record->edit($_GET['id']);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

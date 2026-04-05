@@ -1,7 +1,10 @@
 // jastine
 <?php
-require '../../Record.php';
-$transactions = $Record->getTransactions();
+require '../../Project1.php';
+// require '../../Record.php';
+
+// $transactions = $Record->getTransactions();
+$transactions = $Project1->getTransactions();
 $data0 = $Project->countStudents();
 $data1 = $Project->countMerchant();
 $data2 = $Project->countTransactions();
