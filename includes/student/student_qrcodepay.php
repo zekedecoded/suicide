@@ -57,48 +57,65 @@
     document.addEventListener('DOMContentLoaded', () => {
     const manualInput = document.querySelector('.student-form-input');
     const confirmBtn = document.querySelector('.student-submit-btn');
-
     const html5QrCode = new Html5Qrcode("qr-reader");
 
-    function onScanSuccess(decodedText){
+    function onScanSuccess(decodedText) {
         sendQR(decodedText);
         html5QrCode.stop();
     }
 
-   Html5Qrcode.getCameras().then(cameras => {
-    if (cameras.length === 0) {
-        alert("No camera found");
-        return;
-    }
+    Html5Qrcode.getCameras().then(cameras => {
+        if (cameras.length === 0) {
+            alert("No camera found");
+            return;
+        }
 
-    // Try to find back camera by label first
-    const backCamera = cameras.find(c =>
-        c.label.toLowerCase().includes('back') ||
-        c.label.toLowerCase().includes('rear') ||
-        c.label.toLowerCase().includes('environment')
-    );
+        const backCamera = cameras.find(c =>
+            c.label.toLowerCase().includes('back') ||
+            c.label.toLowerCase().includes('rear') ||
+            c.label.toLowerCase().includes('environment')
+        );
 
-    // If found by label use it, otherwise take the last camera
-    // (on most phones: index 0 = front, last index = back)
-    const selectedCamera = backCamera || cameras[cameras.length - 1];
+        const selectedCamera = backCamera || cameras[cameras.length - 1];
 
-    console.log("Using camera:", selectedCamera.label, selectedCamera.id);
+        console.log("Using camera:", selectedCamera.label, selectedCamera.id);
 
-    html5QrCode.start(
-        selectedCamera.id,
-        {
-            fps: 10,
-            qrbox: { width: 250, height: 250 }
-        },
-        onScanSuccess
-    ).catch(err => {
-        console.error("Camera start failed:", err);
-        alert("Could not start camera: " + err);
+        html5QrCode.start(
+            selectedCamera.id,
+            { fps: 10, qrbox: { width: 250, height: 250 } },
+            onScanSuccess
+        ).catch(err => {
+            console.error("Camera start failed:", err);
+            alert("Could not start camera: " + err);
+        });
+    }).catch(err => {
+        console.error("getCameras failed:", err);
+        alert("Camera access denied. Please allow camera permission.");
     });
 
-}).catch(err => {
-    console.error("getCameras failed:", err);
-    alert("Camera access denied. Please allow camera permission.");
-});
+    confirmBtn.addEventListener('click', () => {
+        const code = manualInput.value.trim();
+        if (!code) return alert("Enter QR code");
+        sendQR(code);
+    });
+
+    function sendQR(qrToken) {
+        fetch("student_scanqr.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "qr_token=" + encodeURIComponent(qrToken)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data); // Debugging
+            if (data.status === "success") {
+                alert(`Paid ${data.desc} - ₱${data.amount}\nNew balance: ₱${data.new_balance}`);
+                location.reload();
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(err => alert("Error: " + err));
+    }
 });
 </script>
