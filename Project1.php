@@ -14,7 +14,7 @@ class Wallet
     public string $course;
     public string $contact_number;
     public string $email;
-    private $con;
+    public $con;
     private string $response;
 
     public function __construct($db)
