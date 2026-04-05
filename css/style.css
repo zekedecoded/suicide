@@ -1,0 +1,342 @@
+/* ================= GLOBAL ================= */
+
+body {
+  margin: 0;
+}
+
+/* ================= EXISTING ================= */
+
+.fonts {
+  color: #02471b;
+}
+
+.header {
+  width: 100%;
+  height: 200px;
+}
+
+.schoollogo {
+  width: 120px;
+  height: 120px;
+}
+
+/* ❌ OLD BACKGROUND (wag na gamitin sa pages) */
+.BodyBG,
+.BodyBG2,
+.BodyBG3,
+.BodyBGfullview,
+.BodyBGfullview2 {
+  background-color: #0da445;
+}
+
+/* CARDS */
+
+.carDbg {
+  background-color: #0d7935;
+  border: none;
+}
+
+.carDbg2 {
+  background-color: #ffffff;
+  border: none;
+}
+
+/* INPUT STYLES */
+
+.inpuTbg,
+.inpuTbg2,
+.inpuTbg3,
+.inpuTbg4 {
+  border: none !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+.inpuTbg {
+  background-color: #0d7935 !important;
+  font-weight: bold !important;
+  font-size: 35px;
+}
+
+.inpuTbg2 {
+  background-color: #0d7935 !important;
+}
+
+.inpuTbg3,
+.inpuTbg4 {
+  background-color: #0da445 !important;
+}
+
+.inpuTbg4 {
+  font-weight: bold !important;
+  font-size: 50px;
+}
+
+.inpuTbg::placeholder,
+.inpuTbg2::placeholder,
+.inpuTbg3::placeholder,
+.inpuTbg4::placeholder {
+  color: #fff !important;
+}
+
+/* TEXT */
+
+.BtN {
+  background-color: #ffffff !important;
+}
+
+.textcolor {
+  color: #ffffff !important;
+}
+
+.textcolorgreen {
+  color: #0d7935 !important;
+}
+
+.textcolorred {
+  color: #790d0d !important;
+}
+
+.bgcolorgreen {
+  background-color: #0d7935 !important;
+}
+
+.logintextbox {
+  color: #0d7935 !important;
+  border: none !important;
+}
+
+.logintextbox::placeholder {
+  color: #fff !important;
+}
+
+.headerimg {
+  height: 170px;
+  width: 100%;
+}
+
+/* ================= GLOBAL GRADIENT (USED BY ALL PAGES) ================= */
+
+.main-gradient {
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(90deg, #1f5f0b 0%, #58d000 100%);
+  background-attachment: fixed;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* ================= LOGIN PAGE ================= */
+
+.login-body {
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(90deg, #1f5f0b 0%, #58d000 100%);
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px 15px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 560px;
+  background: #f7f7f7;
+  border-radius: 60px;
+  padding: 48px 48px 36px;
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.25),
+    0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.login-header {
+  margin-bottom: 28px;
+}
+
+.login-title {
+  color: #244d12;
+  font-weight: 700;
+  font-size: 2.2rem;
+}
+
+.login-subtitle {
+  color: #333;
+  font-size: 15px;
+  line-height: 1.4;
+  letter-spacing: 1px;
+}
+
+.login-label {
+  color: #2b2b2b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.login-input {
+  height: 62px;
+  border-radius: 18px;
+  border: 1px solid #cdd5c4;
+  background-color: #f7f7f7;
+  font-size: 16px;
+  padding: 0 18px;
+}
+
+.login-input:focus {
+  border-color: #95b07f;
+}
+
+.login-input-password {
+  padding-left: 48px;
+  padding-right: 54px;
+}
+
+.login-icon-left {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #3e5f23;
+  font-size: 18px;
+}
+
+.login-toggle-btn {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #3e5f23;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.login-forgot-wrap {
+  margin-top: 6px;
+  margin-bottom: 24px;
+}
+
+.login-link {
+  color: #111;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  color: #244d12;
+}
+
+.login-signin-wrap {
+  margin-bottom: 44px;
+}
+
+.login-btn {
+  height: 58px;
+  border-radius: 18px;
+  background: #244d12;
+  color: #f1c94c;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: none;
+}
+
+.login-btn:hover {
+  background: #1f3d0f !important;
+}
+
+.login-footer-text {
+  font-size: 14px;
+  color: #2f2f2f;
+}
+
+.login-signup-text-link {
+  color: #244d12;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.login-signup-text-link:hover {
+  text-decoration: underline;
+}
+
+/* ================= VERIFICATION PAGE ================= */
+
+.verification-card {
+  width: 100%;
+  max-width: 560px;
+  min-height: 600px;
+  background: #f5f5f5;
+  border-radius: 42px;
+  padding: 60px 50px 40px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+}
+
+.verification-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #254d14;
+}
+
+.verification-subtext {
+  text-align: center;
+  color: #444;
+  margin-bottom: 35px;
+}
+
+.verification-input {
+  height: 60px;
+  border-radius: 18px;
+  border: 1px solid #ccc;
+  font-size: 1.5rem;
+  letter-spacing: 10px;
+  text-align: center;
+}
+
+.verification-btn {
+  width: 260px;
+  height: 40px;
+  border-radius: 18px;
+  background: #254d14;
+  color: #f3d76b;
+  font-weight: 700;
+  text-align: center;
+}
+
+.verification-btn:hover {
+  background: #1d3d10;
+}
+
+.verification-resend {
+  margin-top: auto;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.resend-link {
+  font-weight: 700;
+  color: #000;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .login-card,
+  .verification-card {
+    border-radius: 30px;
+    padding: 35px 25px;
+  }
+
+  .login-title,
+  .verification-title {
+    font-size: 1.8rem;
+  }
+}
