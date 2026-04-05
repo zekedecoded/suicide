@@ -88,7 +88,7 @@ if (isset($_GET['id'])) {
                         <label class="admin-form-label">Middle Name</label>
                         <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
                             'middle_name'
-                        ] ?>">>
+                        ] ?>">
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
@@ -103,7 +103,7 @@ if (isset($_GET['id'])) {
                         <label class="admin-form-label">Suffix</label>
                         <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
                             'suffix'
-                        ] ?>">>
+                        ] ?>">
                     </div>
                 </div>
 
@@ -117,13 +117,13 @@ if (isset($_GET['id'])) {
                         <label class="admin-form-label">Year Level</label>
                         <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
                             'yr_lvl'
-                        ] ?>">>
+                        ] ?>">
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Program</label>
                         <input type="text" class="form-control admin-form-input mt-2" disabled
-                            value="<?= $row['course_name'] ?>">>
+                            value="<?= $row['course_name'] ?>">
                     </div>
                 </div>
 
@@ -142,7 +142,7 @@ if (isset($_GET['id'])) {
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Email</label>
                         <input type="text" class="form-control admin-form-input mt-2" disabled
-                            value="<?= $row['email'] ?>">>
+                            value="<?= $row['email'] ?>">
                     </div>
                 </div>
 

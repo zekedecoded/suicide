@@ -1,11 +1,11 @@
 // jastine
 <?php
-require '../../Project1.php';
-$transactions = $Project->getTransactions();
-$data0 = $Project->countStudents();
-$data1 = $Project->countMerchant();
-$data2 = $Project->countTransactions();
-$data3 = $Project->todayVolume();
+    require '../../Project1.php';
+    $transactions = $Project->getTransactions();
+    $data0 = $Project->countStudents();
+    $data1 = $Project->countMerchant();
+    $data2 = $Project->countTransactions();
+    $data3 = $Project->todayVolume();
 ?>
 // jastine
 

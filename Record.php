@@ -70,7 +70,7 @@ class Wallet
             $stmt2->execute([$newUserID, $this->yr_lvl, $this->courseID]);
 
             $this->responseSQL($stmt2);
-            header('Location: ../index.php');
+            header('Location: ./admin_manager.php');
         }
     }
 
