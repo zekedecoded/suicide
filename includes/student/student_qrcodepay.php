@@ -107,7 +107,7 @@
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data); // Debugging
+            console.log(data);
             if (data.status === "success") {
                 alert(`Paid ${data.desc} - ₱${data.amount}\nNew balance: ₱${data.new_balance}`);
                 location.reload();

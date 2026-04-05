@@ -11,7 +11,6 @@ if (!$qr_token) {
     exit;
 }
 
-// 1️⃣ Check QR validity
 $stmt = $db->prepare("
     SELECT * FROM qr_tokens
     WHERE qr_data = ? AND is_active = 1 AND expires_at > NOW()
@@ -24,7 +23,6 @@ if (!$qr) {
     exit;
 }
 
-// 2️⃣ Get merchantID from the QR owner
 $qr_userID = $qr['userID'];
 $stmt2 = $db->prepare("SELECT merchantID FROM merchant WHERE userID = ?");
 $stmt2->execute([$qr_userID]);
@@ -37,9 +35,8 @@ if (!$merchant) {
 
 $merchantID = $merchant['merchantID'];
 
-// 3️⃣ Set a fixed amount
-$amount = 100; // fixed payment amount
-$desc = 'Payment'; // description
+$amount = 100;
+$desc = 'Payment';
 
 // 4️⃣ Get student wallet
 $stmt3 = $db->prepare("SELECT wallet_id, balance FROM wallet WHERE userID = ?");
@@ -51,21 +48,17 @@ if (!$wallet || $wallet['balance'] < $amount) {
     exit;
 }
 
-// 5️⃣ Deduct wallet balance
 $new_balance = $wallet['balance'] - $amount;
 $db->prepare("UPDATE wallet SET balance = ?, last_updated = NOW() WHERE wallet_id = ?")
    ->execute([$new_balance, $wallet['wallet_id']]);
 
-// 6️⃣ Insert transaction
 $db->prepare("
     INSERT INTO transaction (wallet_id, merchantID, amount, date_time, description, reference)
     VALUES (?, ?, ?, NOW(), ?, ?)
 ")->execute([$wallet['wallet_id'], $merchantID, $amount, $desc, "QR-$qr_token"]);
 
-// 7️⃣ Deactivate QR
 $db->prepare("UPDATE qr_tokens SET is_active = 0 WHERE qrID = ?")->execute([$qr['qrID']]);
 
-// 8️⃣ Return success
 echo json_encode([
     'status' => 'success',
     'amount' => $amount,
