@@ -65,29 +65,40 @@
         html5QrCode.stop();
     }
 
-Html5Qrcode.getCameras().then(cameras => {
-    if (cameras.length > 0) {
-        html5QrCode.start(
-            { facingMode: { exact: "environment" } },
-            {
-                fps: 10,
-                qrbox: { width: 250, height: 250 }
-            },
-            onScanSuccess
-        ).catch(err => {
-            // Fallback: find back camera by label name
-            const backCamera = cameras.find(c => 
-                c.label.toLowerCase().includes('back') || 
-                c.label.toLowerCase().includes('rear') ||
-                c.label.toLowerCase().includes('environment')
-            );
-            const cameraId = backCamera ? backCamera.id : cameras[cameras.length - 1].id;
-            html5QrCode.start(cameraId, { fps: 10, qrbox: 250 }, onScanSuccess);
-        });
-    } else {
+   Html5Qrcode.getCameras().then(cameras => {
+    if (cameras.length === 0) {
         alert("No camera found");
+        return;
     }
-}).catch(err => console.error(err));
-    }
+
+    // Try to find back camera by label first
+    const backCamera = cameras.find(c =>
+        c.label.toLowerCase().includes('back') ||
+        c.label.toLowerCase().includes('rear') ||
+        c.label.toLowerCase().includes('environment')
+    );
+
+    // If found by label use it, otherwise take the last camera
+    // (on most phones: index 0 = front, last index = back)
+    const selectedCamera = backCamera || cameras[cameras.length - 1];
+
+    console.log("Using camera:", selectedCamera.label, selectedCamera.id);
+
+    html5QrCode.start(
+        selectedCamera.id,
+        {
+            fps: 10,
+            qrbox: { width: 250, height: 250 }
+        },
+        onScanSuccess
+    ).catch(err => {
+        console.error("Camera start failed:", err);
+        alert("Could not start camera: " + err);
+    });
+
+}).catch(err => {
+    console.error("getCameras failed:", err);
+    alert("Camera access denied. Please allow camera permission.");
+});
 });
 </script>
