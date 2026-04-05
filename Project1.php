@@ -139,13 +139,7 @@ class Wallet
     // jastine
     public function countStudents()
     {
-<<<<<<< HEAD
         $stmt = $this->con->prepare("SELECT COUNT(*) as totalStudents FROM users WHERE roleID = 1");
-=======
-        $stmt = $this->con->prepare(
-            'SELECT COUNT(*) as totalStudents FROM users WHERE roleID = 2',
-        );
->>>>>>> ca6160f3a6aacaa185a01296cee26b38e7c028d2
         $stmt->execute();
         if (!$stmt->rowCount()) {
             return [];
@@ -155,13 +149,7 @@ class Wallet
     // jastine
     public function countMerchant()
     {
-<<<<<<< HEAD
         $stmt = $this->con->prepare("SELECT COUNT(*) as totalMerchant FROM users WHERE roleID = 2");
-=======
-        $stmt = $this->con->prepare(
-            'SELECT COUNT(*) as totalMerchant FROM users WHERE roleID = 3',
-        );
->>>>>>> ca6160f3a6aacaa185a01296cee26b38e7c028d2
         $stmt->execute();
         if (!$stmt->rowCount()) {
             return [];
@@ -190,7 +178,7 @@ class Wallet
         if (!$stmt->rowCount()) {
             return [];
         }
-        return $stmt->fetchAll();
+        return $stmt->fetchColumn();
     }
     // jastine
 
