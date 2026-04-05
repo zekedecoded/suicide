@@ -1,8 +1,6 @@
 <?php
-require '../../Project.php';
-$data = $Project->getAll();
-
-//fetch data
+require '../../Record.php';
+$data = $Record->getAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,41 +81,50 @@ $data = $Project->getAll();
                             </tr>
                         </thead>
                         <tbody>
-                                 <?php
-                                 $number = 0;
-                                 foreach ($data as $row) {
-                                     $number++; ?>
-                            <tr>
-                                <td><?= $number ?></td>
-                                <td><?= $row['first_name'] .
-                                    ' ' .
-                                    $row['middle_name'] .
-                                    ' ' .
-                                    $row['last_name'] .
-                                    ' ' .
-                                    $row['suffix'] ?></td>
-                                <td><?= $row['yr_lvl'] .
-                                    '—' .
-                                    $row['course'] ?></td>
-                                <td><?= $row['email'] ?></td>
-                                <!-- <td><?= $row['contact_number'] ?></td> -->
-                                <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="admin_view_student_info.php" class="admin-view-btn">
-                                            View
-                                        </a>
-                                        <a href="admin_topup_wallet.php" class="admin-topup-btn">
-                                            Top-up
-                                        </a>
-                                        <a href="#" class="admin-delete-btn">
-                                            Delete
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                                     <?php
-                                 }
-                                 ?>
+                            <?php
+                            $number = 0;
+                            foreach ($data as $row) {
+                                $number++; ?>
+                                <tr>
+                                    <td><?= $number ?></td>
+                                    <td><?= $row['first_name'] .
+                                        ' ' .
+                                        $row['middle_name'] .
+                                        ' ' .
+                                        $row['last_name'] .
+                                        ' ' .
+                                        $row['suffix'] ?></td>
+                                    <td><?= $row['yr_lvl'] .
+                                        ' — ' .
+                                        $row['course_code'] ?></td>
+                                    <td><?= $row['email'] ?></td>
+                                    <!-- <td><?= $row[
+                                        'contact_number'
+                                    ] ?></td> -->
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <a href="admin_view_student_info.php?id=<?= $row[
+                                                'userID'
+                                            ] ?>" class="admin-view-btn">
+                                                View
+                                            </a>
+                                            <a href="admin_topup_wallet.php?id=<?= $row[
+                                                'userID'
+                                            ] ?>" class="admin-topup-btn">
+                                                Top-up
+                                            </a>
+                                            <a href="admin_delete.php?id=<?= $row[
+                                                'userID'
+                                            ] ?>" class="admin-delete-btn"
+                                                onclick="return confirm('Are you sure you want to delete this student?')">
+                                                Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
