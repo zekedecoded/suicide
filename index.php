@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html>
+<?php
+ob_start();
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include 'libraries.php'; ?>
-</head>
+// This is the correct path because 'includes' is in the same folder as 'index.php'
+header('Location: /includes/login_page.php');
 
-<body>
-    <?php include './includes/login_page.php'; ?>
-</body>
-
-</html>
+exit();
+?>

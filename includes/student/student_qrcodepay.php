@@ -65,34 +65,29 @@
         html5QrCode.stop();
     }
 
-    Html5Qrcode.getCameras().then(cameras => {
-        if(cameras.length){
-            html5QrCode.start(cameras[0].id, {fps:10, qrbox:250}, onScanSuccess);
-        } else alert("No camera found");
-    }).catch(err => console.log(err));
-
-    confirmBtn.addEventListener('click', () => {
-        const code = manualInput.value.trim();
-        if(!code) return alert("Enter QR code");
-        sendQR(code);
-    });
-
-    function sendQR(qrToken){
-        fetch("student_scanqr.php", {
-            method: "POST",
-            headers: {"Content-Type":"application/x-www-form-urlencoded"},
-            body: "qr_token=" + encodeURIComponent(qrToken)
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status === "success"){
-                alert(`Paid ${data.desc} - ₱${data.amount}\nNew balance: ₱${data.new_balance}`);
-                location.reload();
-            } else {
-                alert(data.message);
-            }
-        })
-        .catch(err => alert("Error!"));
+Html5Qrcode.getCameras().then(cameras => {
+    if (cameras.length > 0) {
+        html5QrCode.start(
+            { facingMode: { exact: "environment" } },
+            {
+                fps: 10,
+                qrbox: { width: 250, height: 250 }
+            },
+            onScanSuccess
+        ).catch(err => {
+            // Fallback: find back camera by label name
+            const backCamera = cameras.find(c => 
+                c.label.toLowerCase().includes('back') || 
+                c.label.toLowerCase().includes('rear') ||
+                c.label.toLowerCase().includes('environment')
+            );
+            const cameraId = backCamera ? backCamera.id : cameras[cameras.length - 1].id;
+            html5QrCode.start(cameraId, { fps: 10, qrbox: 250 }, onScanSuccess);
+        });
+    } else {
+        alert("No camera found");
+    }
+}).catch(err => console.error(err));
     }
 });
 </script>
