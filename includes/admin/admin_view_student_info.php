@@ -152,7 +152,9 @@ if (isset($_GET['id'])) {
                         Back
                     </a>
 
-                    <a href="admin_action_edit_studentinfo.php" class="admin-submit-btn">
+                    <a href="./admin_action_edit_studentinfo.php?id=<?= $row[
+                        'userID'
+                    ] ?>" class="admin-submit-btn">
                         Edit Information
                     </a>
                 </div>

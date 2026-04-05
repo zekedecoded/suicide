@@ -166,7 +166,9 @@ $data1 = $Record->getMerchants();
                                 <td><?= $row['email'] ?></td>
                                 <td>
                                     <div class="d-flex gap-2">
-                                        <a href="admin_view_store_info.php" class="admin-view-btn">
+                                        <a href="admin_view_store_info.php?id=<?= $row[
+                                            'userID'
+                                        ] ?>" class="admin-view-btn">
                                             View
                                         </a>
                                         <a href="admin_topup_store_wallet.php" class="admin-topup-btn">
