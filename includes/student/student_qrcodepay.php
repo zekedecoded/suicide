@@ -83,8 +83,9 @@
             headers: {"Content-Type":"application/x-www-form-urlencoded"},
             body: "qr_token=" + encodeURIComponent(qrToken)
         })
-        .then(res => res.json())
+        .then(res => res.json()) // parse JSON automatically
         .then(data => {
+            console.log(data); // for debugging
             if(data.status === "success"){
                 alert(`Paid ${data.desc} - ₱${data.amount}\nNew balance: ₱${data.new_balance}`);
                 location.reload();
@@ -92,7 +93,7 @@
                 alert(data.message);
             }
         })
-        .catch(err => alert("Error!"));
+        .catch(err => alert("Error: " + err));
     }
 });
 </script>
