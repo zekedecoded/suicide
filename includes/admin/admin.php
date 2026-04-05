@@ -1,12 +1,12 @@
 // jastine
 <?php
-    require '../../Project1.php';
-    $transactions = $Project->getTransactions();
-    $data0 = $Project->countStudents();
-    $data1 = $Project->countMerchant();
-    $data2 = $Project->countTransactions();
-    $data3 = $Project->todayVolume();
-    $todayVolume = $data3['totalVolume'];
+require '../../Record.php';
+$transactions = $Record->getTransactions();
+$data0 = $Project->countStudents();
+$data1 = $Project->countMerchant();
+$data2 = $Project->countTransactions();
+$data3 = $Project->todayVolume();
+$todayVolume = $data3['totalVolume'];
 ?>
 // jastine
 
@@ -47,7 +47,9 @@
                 <div class="col-md-6 col-xl-3">
                     <div class="admin-stat-card stat-green">
                         <div class="admin-stat-icon">🎓</div>
-                        <div class="admin-stat-number"><?php echo $data0[0]['totalStudents']; ?></div>
+                        <div class="admin-stat-number"><?php echo $data0[0][
+                            'totalStudents'
+                        ]; ?></div>
                         <div class="admin-stat-label">Students</div>
                     </div>
                 </div>
@@ -55,7 +57,9 @@
                 <div class="col-md-6 col-xl-3">
                     <div class="admin-stat-card stat-yellow">
                         <div class="admin-stat-icon">🏪</div>
-                        <div class="admin-stat-number"><?php echo $data1[0]['totalMerchant']; ?></div>
+                        <div class="admin-stat-number"><?php echo $data1[0][
+                            'totalMerchant'
+                        ]; ?></div>
                         <div class="admin-stat-label">Merchant</div>
                     </div>
                 </div>
@@ -63,7 +67,9 @@
                 <div class="col-md-6 col-xl-3">
                     <div class="admin-stat-card stat-blue">
                         <div class="admin-stat-icon">🧾</div>
-                        <div class="admin-stat-number"><?php echo $data2[0]['totalTransactions']; ?></div>
+                        <div class="admin-stat-number"><?php echo $data2[0][
+                            'totalTransactions'
+                        ]; ?></div>
                         <div class="admin-stat-label">Transactions</div>
                     </div>
                 </div>
@@ -71,7 +77,10 @@
                 <div class="col-md-6 col-xl-3">
                     <div class="admin-stat-card stat-orange">
                         <div class="admin-stat-icon">💵</div>
-                        <div class="admin-stat-number">₱<?php echo number_format($todayVolume, 2);?></div>
+                        <div class="admin-stat-number">₱<?php echo number_format(
+                            $todayVolume,
+                            2,
+                        ); ?></div>
                         <div class="admin-stat-label">Today's Volume</div>
                     </div>
                 </div>
@@ -126,6 +135,7 @@
                             <tr>
                                 <!-- <td><span class="transaction-pill pay-pill">PAY</span></td> -->
                                 <td><?php echo $ts['date_time']; ?></td>
+<<<<<<< HEAD
                                 <td>
                                     <?php 
                                     if (!empty($ts['merchant_name'])) {
@@ -145,6 +155,16 @@
                                     ?>
                                 </td>
                                 <td class="amount-cell">₱<?php echo number_format($ts['amount'], 2); ?></td>
+=======
+                                <td><?php echo $ts['merchant_name']; ?></td>
+                                <td><?php echo $ts['student_firstname'] .
+                                    ' ' .
+                                    $ts['student_lastname']; ?></td>
+                                <td class="amount-cell">₱<?php echo number_format(
+                                    $ts['amount'],
+                                    2,
+                                ); ?></td>
+>>>>>>> ca6160f3a6aacaa185a01296cee26b38e7c028d2
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
