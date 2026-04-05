@@ -1,12 +1,14 @@
 <?php
 include '../../Record.php';
+$userID = $_GET['id'] ?? 0;
+$data = $Record->viewMerchant($userID);
 
-if (isset($_GET['id'])) {
-    $row = $Record->viewStore($_GET['id']);
-} else {
-    //redirect
+if (!$data) {
+    header('Location: ./admin_manager.php');
+    exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,8 +30,8 @@ if (isset($_GET['id'])) {
             <!-- TOP -->
             <div class="admin-top-row">
                 <div class="admin-title-group">
-                    <h1 class="admin-page-title">Store Profile</h1>
-                    <p class="admin-page-subtitle">View store and owner details</p>
+                    <h1 class="admin-page-title">View Store</h1>
+                    <p class="admin-page-subtitle">Merchant account details</p>
                 </div>
 
                 <div class="admin-top-actions">
@@ -66,12 +68,14 @@ if (isset($_GET['id'])) {
             <div class="admin-table-shell">
                 <div class="admin-table-head">
                     <div>
-                        <h3 class="admin-table-title">Store Information</h3>
-                        <p class="admin-table-subtitle">Read-only details of the store</p>
+                        <h3 class="admin-table-title">Store Profile</h3>
+                        <p class="admin-table-subtitle">Merchant #<?= $data[
+                            'merchantID'
+                        ] ?></p>
                     </div>
                 </div>
 
-                <!-- OWNER -->
+                <!-- OWNER INFORMATION -->
                 <div class="row gx-4 gy-3 pb-4">
                     <div class="col-12">
                         <h4 class="admin-form-section-title">Owner Information</h4>
@@ -79,34 +83,34 @@ if (isset($_GET['id'])) {
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">First Name</label>
-                        <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
-                            'first_name'
-                        ] ?>">
+                        <div class="form-control admin-form-input mt-2">
+                            <?= $data['first_name'] ?>
+                        </div>
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Middle Name</label>
-                        <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
-                            'middle_name'
-                        ] ?>">
-                    </div>
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <label class="admin-form-label">Last Name</label>
-                        <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
-                            'last_name'
-                        ] ?>">
+                        <div class="form-control admin-form-input mt-2">
+                            <?= $data['middle_name'] ?>
+                        </div>
                     </div>
 
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <label class="admin-form-label">Last Name</label>
+                        <div class="form-control admin-form-input mt-2">
+                            <?= $data['last_name'] ?>
+                        </div>
+                    </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Suffix</label>
-                        <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
-                            'suffix'
-                        ] ?>">
+                        <div class="form-control admin-form-input mt-2">
+                            <?= $data['suffix'] ?: '—' ?>
+                        </div>
                     </div>
                 </div>
 
-                <!-- STORE -->
+                <!-- STORE INFORMATION -->
                 <div class="row gx-4 gy-3 pb-4">
                     <div class="col-12">
                         <h4 class="admin-form-section-title">Store Information</h4>
@@ -114,13 +118,20 @@ if (isset($_GET['id'])) {
 
                     <div class="col-12 col-sm-6 col-lg-4">
                         <label class="admin-form-label">Store Name</label>
-                        <input type="text" class="form-control admin-form-input mt-2" disabled value="<?= $row[
-                            'stall_name'
-                        ] ?>">
+                        <div class="form-control admin-form-input mt-2">
+                            <?= $data['stall_name'] ?>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <label class="admin-form-label">Wallet Balance</label>
+                        <div class="form-control admin-form-input mt-2">
+                            ₱<?= number_format($data['balance'], 2) ?>
+                        </div>
                     </div>
                 </div>
 
-                <!-- CONTACT -->
+                <!-- CONTACT INFORMATION -->
                 <div class="row gx-4 gy-3 pb-2">
                     <div class="col-12">
                         <h4 class="admin-form-section-title">Contact Information</h4>
@@ -128,14 +139,16 @@ if (isset($_GET['id'])) {
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Contact Number</label>
-                        <input type="text" class="form-control admin-form-input mt-2" disabled
-                            value="<?= $row['contact_number'] ?>">
+                        <div class="form-control admin-form-input mt-2">
+                            <?= $data['contact_number'] ?>
+                        </div>
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Email</label>
-                        <input type="text" class="form-control admin-form-input mt-2" disabled
-                            value="<?= $row['email'] ?>">
+                        <div class="form-control admin-form-input mt-2">
+                            <?= $data['email'] ?>
+                        </div>
                     </div>
                 </div>
 
@@ -145,8 +158,10 @@ if (isset($_GET['id'])) {
                         Back
                     </a>
 
-                    <a href="admin_action_edit_studentinfo.php" class="admin-submit-btn">
-                        Edit Information
+                    <a href="admin_topup_wallet.php?id=<?= $data[
+                        'userID'
+                    ] ?>" class="admin-topup-btn">
+                        Top-up Wallet
                     </a>
                 </div>
 

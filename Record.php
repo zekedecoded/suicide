@@ -74,10 +74,8 @@ class Wallet
                 $this->email,
             ]);
 
-            // Get the newly inserted userID
             $newUserID = $this->con->lastInsertId();
 
-            // Insert into student_info using the new userID
             $stmt2 = $this->con->prepare(
                 'INSERT INTO student_info (userID, studentID, yr_lvl, courseID) VALUES (?, "", ?, ?)',
             );
@@ -108,10 +106,8 @@ class Wallet
                 $this->email,
             ]);
 
-            // Get the newly inserted userID
             $newUserID = $this->con->lastInsertId();
 
-            // Insert into merchant table with stall name
             $stmt2 = $this->con->prepare(
                 'INSERT INTO merchant (userID, stall_name) VALUES (?, ?)',
             );
@@ -131,13 +127,12 @@ class Wallet
         );
         $stmt->execute([$userID]);
 
-        // Then delete from users
         $stmt2 = $this->con->prepare('DELETE FROM users WHERE userID = ?');
         $stmt2->execute([$userID]);
         return $stmt2->rowCount() > 0;
     }
 
-    //Edit Function
+    // Edit Student Function
     public function edit($userID)
     {
         $this->getPost();
@@ -162,16 +157,45 @@ class Wallet
             $stmt2->execute([$this->yr_lvl, $this->courseID, $userID]);
 
             $this->responseSQL($stmt);
-            header("Location: ../includes/editEmployment.php?id=$userID");
+            header('Location: ./admin_manager.php');
         }
     }
 
+    // Edit Merchant Function
+    public function editMerchant($userID)
+    {
+        $this->getMerchantPost();
+        if (!empty($_POST)) {
+            $stmt = $this->con->prepare(
+                'UPDATE users SET last_name = ?, first_name = ?, middle_name = ?, suffix = ?, contact_number = ?, email = ? WHERE userID = ?',
+            );
+            $stmt->execute([
+                $this->last_name,
+                $this->first_name,
+                $this->middle_name,
+                $this->suffix,
+                $this->contact_number,
+                $this->email,
+                $userID,
+            ]);
+
+            // Update stall_name in merchant table
+            $stmt2 = $this->con->prepare(
+                'UPDATE merchant SET stall_name = ? WHERE userID = ?',
+            );
+            $stmt2->execute([$this->stall_name, $userID]);
+
+            $this->responseSQL($stmt);
+            header('Location: ./admin_manager.php');
+        }
+    }
+
+    // View single student profile
     public function view($userID)
     {
         if (!$userID) {
             return 0;
         }
-        // Join student_info and course to get full student profile
         $stmt = $this->con->prepare(
             'SELECT u.*, s.stud_infoID, s.studentID, s.yr_lvl, c.courseID, c.course_code, c.course_name
              FROM users u
@@ -182,16 +206,17 @@ class Wallet
         $stmt->execute([$userID]);
         return $stmt->rowCount() ? $stmt->fetch() : 0;
     }
-    public function viewStore($userID)
+
+    // View single merchant profile
+    public function viewMerchant($userID)
     {
         if (!$userID) {
             return 0;
         }
-        // Join student_info and course to get full student profile
         $stmt = $this->con->prepare(
-            'SELECT u.*, m.userID, m.stall_name
+            'SELECT u.*, m.merchantID, m.stall_name
              FROM users u
-             LEFT JOIN merchant m ON u.userID = m.userID
+             JOIN merchant m ON u.userID = m.userID
              WHERE u.userID = ?',
         );
         $stmt->execute([$userID]);

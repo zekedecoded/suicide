@@ -17,15 +17,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['roleID'] = $user['roleID'];
 
             switch ($user['roleID']) {
-                case 1: header("Location: ./student/student.php"); exit;
-                case 2: header("Location: ./store/store.php"); exit;
-                case 3: header("Location: ./admin/admin.php"); exit;
+                case 1:
+                    header('Location: ./student/student.php');
+                    exit();
+                case 2:
+                    header('Location: ./store/store.php');
+                    exit();
+                case 3:
+                    header('Location: ./admin/admin.php');
+                    exit();
             }
         } else {
-            $error = "Invalid login!";
+            $error = 'Invalid login!';
         }
     } else {
-        $error = "Fill all fields!";
+        $error = 'Fill all fields!';
     }
 }
 ?>

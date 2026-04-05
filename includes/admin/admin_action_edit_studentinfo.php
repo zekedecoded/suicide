@@ -2,9 +2,11 @@
 include '../../Record.php';
 
 if (isset($_GET['id'])) {
-    $row1 = $Record->view($_GET['id']);
+    $row = $Record->view($_GET['id']);
+    $courses = $Record->getCourses();
 } else {
-    //redirect
+    header('Location: ./admin_manager.php');
+    exit();
 }
 
 if (isset($_POST['edit'])) {
@@ -64,7 +66,7 @@ if (isset($_POST['edit'])) {
                 </div>
             </div>
 
-            <div class="admin-table-shell">
+            <form method="POST" class="admin-table-shell">
                 <div class="admin-table-head">
                     <div>
                         <h3 class="admin-table-title">Student Information</h3>
@@ -72,6 +74,7 @@ if (isset($_POST['edit'])) {
                     </div>
                 </div>
 
+                <!-- PERSONAL -->
                 <div class="row gx-4 gy-3 pb-4">
                     <div class="col-12">
                         <h4 class="admin-form-section-title">Personal Information</h4>
@@ -79,46 +82,75 @@ if (isset($_POST['edit'])) {
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">First Name</label>
-                        <input name="firstname" type="text" class="form-control admin-form-input mt-2"
-                            placeholder="Michael">
-                    </div>
-
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <label class="admin-form-label">Last Name</label>
-                        <input name="lastname" type="text" class="form-control admin-form-input mt-2"
-                            placeholder="Garcia">
+                        <input name="first_name" type="text" class="form-control admin-form-input mt-2"
+                            value="<?= $row['first_name'] ?>">
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Middle Name</label>
-                        <input name="middlename" type="text" class="form-control admin-form-input mt-2"
-                            placeholder="Bañez">
+                        <input name="middle_name" type="text" class="form-control admin-form-input mt-2"
+                            value="<?= $row['middle_name'] ?>">
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <label class="admin-form-label">Last Name</label>
+                        <input name="last_name" type="text" class="form-control admin-form-input mt-2"
+                            value="<?= $row['last_name'] ?>">
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Suffix</label>
-                        <input name="suffix" type="text" class="form-control admin-form-input mt-2" placeholder="Jr.">
+                        <input name="suffix" type="text" class="form-control admin-form-input mt-2"
+                            value="<?= $row['suffix'] ?>">
                     </div>
                 </div>
 
+                <!-- YEAR LEVEL & PROGRAM -->
                 <div class="row gx-4 gy-3 pb-4">
                     <div class="col-12">
                         <h4 class="admin-form-section-title">Year Level & Program</h4>
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
-                        <label class="admin-form-label">Year Level</label>
-                        <input name="yearlevel" type="text" class="form-control admin-form-input mt-2"
-                            placeholder="3rd Year">
+                        <label class="admin-form-label" for="yr_lvl">Year Level</label>
+                        <select id="yr_lvl" name="yr_lvl" class="form-control admin-form-input mt-2">
+                            <?php
+                            $levels = [
+                                '1st Year',
+                                '2nd Year',
+                                '3rd Year',
+                                '4th Year',
+                            ];
+                            foreach ($levels as $level): ?>
+                                <option value="<?= $level ?>"
+                                    <?= $row['yr_lvl'] === $level
+                                        ? 'selected'
+                                        : '' ?>>
+                                    <?= $level ?>
+                                </option>
+                            <?php endforeach;
+                            ?>
+                        </select>
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
-                        <label class="admin-form-label">Program</label>
-                        <input name="program" type="text" class="form-control admin-form-input mt-2"
-                            placeholder="Computer Science">
+                        <label class="admin-form-label" for="courseID">Program</label>
+                        <select id="courseID" name="courseID" class="form-control admin-form-input mt-2">
+                            <?php foreach ($courses as $course): ?>
+                                <option value="<?= $course['courseID'] ?>"
+                                    <?= $row['courseID'] == $course['courseID']
+                                        ? 'selected'
+                                        : '' ?>>
+                                    <?= $course['course_code'] ?> - <?= $course[
+     'course_name'
+ ] ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </div>
 
+                <!-- CONTACT -->
                 <div class="row gx-4 gy-3 pb-2">
                     <div class="col-12">
                         <h4 class="admin-form-section-title">Contact Information</h4>
@@ -126,27 +158,29 @@ if (isset($_POST['edit'])) {
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Contact Number</label>
-                        <input name="contact" type="text" class="form-control admin-form-input mt-2"
-                            placeholder="09123456789">
+                        <input name="contact_number" type="text" class="form-control admin-form-input mt-2"
+                            value="<?= $row['contact_number'] ?>">
                     </div>
 
                     <div class="col-12 col-sm-6 col-lg-3">
                         <label class="admin-form-label">Email</label>
                         <input name="email" type="text" class="form-control admin-form-input mt-2"
-                            placeholder="michael.garcia@example.com">
+                            value="<?= $row['email'] ?>">
                     </div>
                 </div>
 
+                <!-- BUTTONS -->
                 <div class="d-flex justify-content-between flex-wrap gap-3 pt-4">
                     <a href="admin_manager.php" class="admin-back-btn">
                         Back
                     </a>
 
-                    <a href="admin_manager.php" class="admin-submit-btn">
-                        Submit Information
-                    </a>
+                    <button name="edit" class="admin-submit-btn">
+                        Save Changes
+                    </button>
                 </div>
-            </div>
+
+            </form>
 
         </div>
     </div>
