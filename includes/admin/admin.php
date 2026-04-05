@@ -135,6 +135,7 @@
                                 <!-- <td><span class="transaction-pill pay-pill">PAY</span></td> -->
                                 <td><?php echo $ts['date_time']; ?></td>
                                 <td>
+<<<<<<< HEAD
                                     <?php 
                                     if (!empty($ts['merchant_name'])) {
                                         echo $ts['merchant_name'];
@@ -153,6 +154,32 @@
                                     ?>
                                 </td>
                                 <td class="amount-cell">₱<?php echo number_format($ts['amount'], 2); ?></td>
+=======
+                                    <?php if (!empty($ts['merchant_name'])) {
+                                        echo $ts['merchant_name'];
+                                    } else {
+                                        echo $ts['student_firstname'] .
+                                            ' ' .
+                                            $ts['student_lastname'];
+                                    } ?>
+                                </td>
+                                <td>
+                                    <?php if (!empty($ts['merchant_name'])) {
+                                        echo $ts['student_firstname'] .
+                                            ' ' .
+                                            $ts['student_lastname'];
+                                    } else {
+                                        echo 'ADMIN: ' .
+                                            $ts['admin_firstname'] .
+                                            ' ' .
+                                            $ts['admin_lastname'];
+                                    } ?>
+                                </td>
+                                <td class="amount-cell">₱<?php echo number_format(
+                                    $ts['amount'],
+                                    2,
+                                ); ?></td>
+>>>>>>> 24f82e85c0a7541ced876551924dd6b826f1d6bf
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
