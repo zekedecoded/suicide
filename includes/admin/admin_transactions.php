@@ -1,3 +1,15 @@
+// jastine
+<?php
+    require '../../Project1.php';
+    $transactions = $Project->getTransactions();
+    $data0 = $Project->countStudents();
+    $data1 = $Project->countMerchant();
+    $data2 = $Project->countTransactions();
+    $data3 = $Project->todayVolume();
+    $todayVolume = $data3['totalVolume'];
+?>
+// jastine
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,31 +79,23 @@
                     <table class="table admin-transaction-table align-middle mb-0">
                         <thead>
                             <tr>
-                                <th>Type</th>
+                                <!-- <th>Type</th> -->
                                 <th>Date</th>
-                                <th>To / From</th>
+                                <th>To</th>
+                                <th>From</th>
                                 <th>Amount</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach ($transactions as $ts): ?>
                             <tr>
-                                <td><span class="transaction-pill pay-pill">PAY</span></td>
-                                <td>4/4/2025</td>
-                                <td>Otto</td>
-                                <td class="amount-cell">₱50</td>
+                                <!-- <td><span class="transaction-pill pay-pill">PAY</span></td> -->
+                                <td><?php echo $ts['date_time']; ?></td>
+                                <td><?php echo $ts['merchant_name']; ?></td>
+                                <td><?php echo $ts['student_firstname'] . ' ' . $ts['student_lastname'] ?? 'ADMIN' ?></td>
+                                <td class="amount-cell">₱<?php echo number_format($ts['amount'], 2); ?></td>
                             </tr>
-                            <tr>
-                                <td><span class="transaction-pill pay-pill">PAY</span></td>
-                                <td>4/5/2025</td>
-                                <td>Thornton</td>
-                                <td class="amount-cell">₱100</td>
-                            </tr>
-                            <tr>
-                                <td><span class="transaction-pill cashin-pill">CASH IN</span></td>
-                                <td>4/3/2025</td>
-                                <td>ADMIN</td>
-                                <td class="amount-cell">₱5,000</td>
-                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>

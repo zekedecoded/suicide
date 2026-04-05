@@ -126,8 +126,24 @@
                             <tr>
                                 <!-- <td><span class="transaction-pill pay-pill">PAY</span></td> -->
                                 <td><?php echo $ts['date_time']; ?></td>
-                                <td><?php echo $ts['merchant_name']; ?></td>
-                                <td><?php echo $ts['student_firstname'] . ' ' . $ts['student_lastname']; ?></td>
+                                <td>
+                                    <?php 
+                                    if (!empty($ts['merchant_name'])) {
+                                        echo $ts['merchant_name'];
+                                    } else {
+                                        echo $ts['student_firstname'] . ' ' . $ts['student_lastname'];
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php 
+                                    if (!empty($ts['merchant_name'])) {
+                                        echo $ts['student_firstname'] . ' ' . $ts['student_lastname'];
+                                    } else {
+                                        echo 'ADMIN: ' . $ts['admin_firstname'] . ' ' . $ts['admin_lastname'];
+                                    }
+                                    ?>
+                                </td>
                                 <td class="amount-cell">₱<?php echo number_format($ts['amount'], 2); ?></td>
                             </tr>
                             <?php endforeach; ?>
