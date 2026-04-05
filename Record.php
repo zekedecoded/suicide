@@ -153,6 +153,30 @@ class Wallet
         }
         return $stmt->fetchAll();
     }
+    public function getTransactions()
+    {
+        $stmt = $this->con->prepare("SELECT 
+            t.transactionID,
+            t.amount,
+            t.date_time,
+            t.description,
+            
+            su.first_name AS student_firstname,
+            su.last_name AS student_lastname,
+            
+            m.stall_name AS merchant_name
+        FROM transaction t
+        JOIN wallet w ON t.wallet_id = w.wallet_id
+        JOIN users su ON w.userID = su.userID
+        LEFT JOIN merchant m ON t.merchantID = m.merchantID
+        ORDER BY t.date_time DESC
+        ");
+        $stmt->execute();
+        if (!$stmt->rowCount()) {
+            return [];
+        }
+        return $stmt->fetchAll();
+    }
 
     public function responseSQL($stmt)
     {
